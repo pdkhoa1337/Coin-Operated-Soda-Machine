@@ -13,12 +13,11 @@ public class CoinOperatedSodaMachine{
         this.promotion = promotion;
         this.exceptedNotes =   exceptedNotes;
         Collections.sort(this.exceptedNotes);
-        Collections.reverse(this.exceptedNotes);
+        Collections.reverse(this.exceptedNotes);// sort decending order to make it easier to get the change
         this.drinks = drinks;
     }
     
-    public void buy(){
-        Scanner scan = new Scanner(System.in);
+    public void buy(Scanner scan){
         int money = 0;
         int bill = 1;
         //insert money
@@ -36,26 +35,25 @@ public class CoinOperatedSodaMachine{
             }
         }
         //choose drinks 
-        scan.nextLine();
+        scan.nextLine();//to wipe the buffer
         String choice = "";
-        int remain = money;
+        int remain = money;// make copy of money so that we know how much money they have left and also to refund when they cancel
         ArrayList<String> buys = new ArrayList<String>();
         System.out.println("Please choose the drinks from the list or press cancel to cancel and get refund or press 0 to exit:");
 
         for(String drink: drinks.keySet()){
-            System.out.println(drink+"("+drinks.get(drink)+")");
+            System.out.println(drink+"("+drinks.get(drink)+")");//list the drinks that we have and their prices 
         }
         while ( !choice.equals("0") ){
 
-            if (choice.equals("cancel")){
+            choice = scan.nextLine();
+            if (choice.equals("cancel")){// customer cancel order
                 refund(money);
-                scan.close();
                 return;
             }
-            choice = scan.nextLine();
             Integer price = drinks.get(choice);
             if(price != null){
-                if(remain - price >0){
+                if(remain - price >=0){
                     remain -= price;
                     buys.add(choice);
                 }
@@ -70,7 +68,6 @@ public class CoinOperatedSodaMachine{
         // refund
         promotion.run(buys,drinks);
         refund(remain) ;
-        scan.close();
     }
     private void refund(int money){
         System.out.println("Here is your change:");

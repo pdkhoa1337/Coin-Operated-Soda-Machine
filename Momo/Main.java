@@ -1,6 +1,8 @@
 package Momo;
+import java.nio.channels.ScatteringByteChannel;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,7 +18,13 @@ public class Main {
         drinks.put("soda",20000);
         
         CoinOperatedSodaMachine machine = new CoinOperatedSodaMachine(new MyPromotion(), exceptedNotes, drinks);
-        machine.buy();
-
+        System.out.println("Machine activated");
+        Scanner scan = new Scanner(System.in);
+        String cmd = "";
+        while(!cmd.equals("exit")){
+            machine.buy(scan);
+            cmd = scan.nextLine();
+        }
+        scan.close();
     }
 }

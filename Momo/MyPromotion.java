@@ -1,15 +1,15 @@
 package Momo;
 
-import java.io.FileReader;
+// import java.io.FileReader;
 import java.util.HashMap;
 import java.util.List;
 
 public class MyPromotion implements Promotion{
     int budget=50000;
-    float winrate = (float) 0.1;
+    float winrate = (float) 0.9;
 
     @Override
-    public void run(List<String> history,HashMap<String,Integer> drinks) {
+    public void run(List<String> history,HashMap<String,Integer> drinks) {//history to know when to give out drinks, drinks to know the price to fit into budget
         HashMap<String,Integer> purchase  = new HashMap<String,Integer>();
         for(String buy:history){
             int count = purchase.containsKey(buy) ? purchase.get(buy) : 0;
